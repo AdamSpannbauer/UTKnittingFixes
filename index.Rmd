@@ -21,6 +21,8 @@ output:
 
 More details and options to fix in the sections below.
 
+Do you have a common issue that you'd like to help prevent?? Submit it [here](https://github.com/AdamSpannbauer/UTKnittingFixes/issues/new)!
+
 # More details on issues and fixes
 
 ## Installing packages is illegal
