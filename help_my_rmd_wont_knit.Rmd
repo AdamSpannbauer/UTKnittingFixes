@@ -1,0 +1,157 @@
+---
+title: "Help! My RMD won't knit!"
+subtitle: "A guide to all the illegal things you're doing"
+date: "`r Sys.Date()`"
+always_allow_html: true
+output: 
+  html_document:
+    theme: united
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+---
+
+# Quick fix list
+
+More details and options to fix in the sections below.
+
+* Delete `install.packages()` lines
+* Delete `View()` lines
+* Delete interactive graphics lines (e.g. `plotly`; fine if knitting to HTML, not fine for Word/PDF)
+* Put csv/Rdata/other files in same folder as `.Rmd` and don't use folders in the file path
+  * i.e. `read.csv('file.csv')` not `read.csv('dir/file.csv')`
+
+# More details on issues and fixes
+
+## Installing packages is illegal
+
+```r
+install.packages('illegal')
+```
+
+### Solution
+
+* Option 1. Delete any lines using `install.packages()`
+* Option 2. "Comment out" any lines using `install.packages()` (place a `#` in front of the line)
+
+### Error message
+
+An error mentioning `install`.  Example error below, but it could differ:
+
+```
+Error in contrib.url(repos, "source") : 
+trying to use CRAN without setting a mirror
+Calls: <Anonymous> ... withVisible -> eval -> eval -> install.packages -> contrib.url
+Execution halted
+```
+
+### Problem details
+
+.Rmd knitting works in a specific environment that is a little different than the typical R environment.  It doesn't have the ability to go out and download/install a package.
+
+## Reading files with the wrong path is illegal
+
+```r
+read.csv('badFolder/illegal.csv')
+load('badFolder/illegal.Rdata')
+```
+
+### Solution
+
+* Move the data file to the same folder as the `.Rmd`.  Make sure the file path in your read/load function does not mention any folders.
+
+```r
+# First, move .Rmd and data file to same folder.
+
+# GOOD:
+read.csv('legal.csv')          # <- GOOD
+load('legal.Rdata')            # <- GOOD
+
+# BAD:
+read.csv('folder/illegal.csv') # <- BAD
+load('folder/illegal.Rdata')   # <- BAD
+```
+
+There are alternative methods to this solution, but this is the most concise to write up  If you know the term "relative path" then the knowledge needed to solve this problem is: the file paths you use should be relative to the .Rmd file. 
+
+### Error message
+
+An error mentioning `cannot open the connection`.  Example error below, but it could differ:
+
+```
+Error in file(file, "rt") : cannot open the connection
+Calls: <Anonymous> ... withVisible -> eval -> eval -> read.csv -> read.table -> file
+Execution halted
+```
+
+### Problem details
+
+The .Rmd file thinks of your file structure a little differently than your regular R session does.  If you say `read.csv('data.csv')`, your .Rmd looks for a file in the same folder as itself.  If you say `read.csv('dataFolder/data.csv')`, your .Rmd looks for `dataFolder` in the folder where the .Rmd is saved.  This idea of the .Rmd looking for things based on where its saved is called a "relative path", the .Rmd always takes directions based on where it currently is.
+
+
+## The `View()` function is illegal (sometimes... on Mac...)
+
+```r
+View(mtcars)
+```
+
+### Solution
+
+* Option 1. Delete any lines using `View()`
+* Option 2. "Comment out" any lines using `View()` (place a `#` in front of the line)
+
+### Error message
+
+Some error message mentioning `View`
+
+Mac error:
+
+```
+Error in check_for_XQuartz() : 
+  X11 library is missing: install XQuartz from xquartz.macosforge.org
+Calls: <Anonymous> ... withVisible -> eval -> eval -> View -> check_for_XQuartz
+```
+
+### Problem details
+
+The `View()` function is useful when exploring data because it pops open a separate tab to investigate your data interactively.  However, this idea of popping up a window doesn't really make sense in the context of a Word document or other .Rmd knit output files.
+
+
+## Interactive graphics in Word are illegal
+
+```r
+library(plotly)
+library(fpp3)
+
+autoplot(aus_arrivals) %>% 
+  ggplotly()
+  
+plot_ly(mtcars, x = ~mpg, y = ~hp)
+```
+
+### Solution
+
+* Option 1. Delete/convert plotly usage.  If using `ggplotly()` just delete those lines.
+* Option 2. If allowed for the assignment, knit to HTML instead of Word to keep the interactive graphics (click down arrow beside the knit 
+🧶 icon and click "Knit to HTML")
+* Option 3. Manually screenshot plotly plots and paste into Word doc (would require to be done each time you knit)
+
+**Beware**, the error says you can add `always_allow_html: true`.  This will allow your file to knit, but **your plot won't appear in the Word doc**.  This just silences the error, it doesn't fix it.
+
+### Error message
+
+```
+Error: Functions that produce HTML output found in document targeting docx output.
+Please change the output type of this document to HTML. Alternatively, you can allow
+HTML output in non-HTML formats by adding this option to the YAML front-matter of
+your rmarkdown file:
+
+  always_allow_html: true
+
+Note however that the HTML output will not be visible in non-HTML formats.
+```
+
+### Problem details
+
+Word/PDFs are just static documents and can't handle interactive graphics being put in them ¯\\\_(ツ)\_/¯. Not much else to expand on unfortunately..
