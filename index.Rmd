@@ -1,7 +1,6 @@
 ---
 title: "Help! My RMD won't knit!"
 subtitle: "A guide to all the illegal things you're doing"
-date: "`r Sys.Date()`"
 always_allow_html: true
 output: 
   html_document:
@@ -14,13 +13,13 @@ output:
 
 # Quick fix list
 
-More details and options to fix in the sections below.
-
 * Delete `install.packages()` lines
 * Delete `View()` lines
 * Delete interactive graphics lines (e.g. `plotly`; fine if knitting to HTML, not fine for Word/PDF)
 * Put csv/Rdata/other files in same folder as `.Rmd` and don't use folders in the file path
   * i.e. `read.csv('file.csv')` not `read.csv('dir/file.csv')`
+
+More details and options to fix in the sections below.
 
 # More details on issues and fixes
 
