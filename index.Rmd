@@ -13,11 +13,10 @@ output:
 
 # Quick fix list
 
-* Delete `install.packages()` lines
-* Delete `View()` lines
-* Delete interactive graphics lines (e.g. `plotly`; fine if knitting to HTML, not fine for Word/PDF)
-* Put csv/Rdata/other files in same folder as `.Rmd` and don't use folders in the file path
-  * i.e. `read.csv('file.csv')` not `read.csv('dir/file.csv')`
+1. Delete `install.packages()` lines
+2. Delete `View()` lines
+3. Delete interactive graphics lines (e.g. `plotly`; fine if knitting to HTML, not fine for Word/PDF)
+4. Put `.csv`/`.Rdata`/other files in same folder as `.Rmd` and don't use folders in the file path (i.e. `read.csv('file.csv')` not `read.csv('dir/file.csv')`)
 
 More details and options to fix in the sections below.
 

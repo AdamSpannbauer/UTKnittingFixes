@@ -1518,18 +1518,16 @@ div.tocify {
 
 <div id="quick-fix-list" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Quick fix list</h1>
-<ul>
+<ol style="list-style-type: decimal">
 <li>Delete <code>install.packages()</code> lines</li>
 <li>Delete <code>View()</code> lines</li>
 <li>Delete interactive graphics lines (e.g. <code>plotly</code>; fine if
 knitting to HTML, not fine for Word/PDF)</li>
-<li>Put csv/Rdata/other files in same folder as <code>.Rmd</code> and
-don’t use folders in the file path
-<ul>
-<li>i.e. <code>read.csv(&#39;file.csv&#39;)</code> not
-<code>read.csv(&#39;dir/file.csv&#39;)</code></li>
-</ul></li>
-</ul>
+<li>Put <code>.csv</code>/<code>.Rdata</code>/other files in same folder
+as <code>.Rmd</code> and don’t use folders in the file path
+(i.e. <code>read.csv(&#39;file.csv&#39;)</code> not
+<code>read.csv(&#39;dir/file.csv&#39;)</code>)</li>
+</ol>
 <p>More details and options to fix in the sections below.</p>
 <p>Do you have a common issue that you’d like to help prevent?? Submit
 it <a href="https://github.com/AdamSpannbauer/UTKnittingFixes/issues/new">here</a>!</p>
