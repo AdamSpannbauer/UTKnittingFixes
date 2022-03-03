@@ -1527,6 +1527,7 @@ knitting to HTML, not fine for Word/PDF)</li>
 as <code>.Rmd</code> and don’t use folders in the file path
 (i.e. <code>read.csv(&#39;file.csv&#39;)</code> not
 <code>read.csv(&#39;dir/file.csv&#39;)</code>)</li>
+<li><a href="#debugging">Debugging help</a></li>
 <li>Double check your knitted output file! Did you accidentally print
 out 1000s of rows of data?</li>
 </ol>
@@ -1690,6 +1691,26 @@ details</h3>
 graphics being put in them ¯\_(ツ)_/¯. Not much else to expand on
 unfortunately..</p>
 </div>
+</div>
+<div id="reading-rmd-error-output" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Reading Rmd error
+output</h2>
+<p><a id="debugging"></a></p>
+<p>The Issues output that .Rmds give when knitting sometimes just points
+to bugs in your code that would error just by running. The error will
+tell you what “chunk” to go to but won’t tell you what specific line in
+that chunk was buggy.</p>
+<p>Example:</p>
+<pre><code>Line 87 Error in 1 + &quot;a&quot; : non-numeric argument to binary operator
+        Calls: &lt;Anonymous&gt; ... handle -&gt; withCallingHandlers -&gt; withVisible -&gt; eval -&gt; eval
+        Execution halted</code></pre>
+<p>To fix:</p>
+<ul>
+<li>Go to the code chunk that starts at line 87</li>
+<li>Run each line of code in the chunk and see which line is buggy</li>
+<li>Do your best to identify what the issue is and fix the bad line of
+code</li>
+</ul>
 </div>
 </div>
 
